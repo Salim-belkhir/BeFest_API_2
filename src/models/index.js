@@ -52,6 +52,7 @@ db.jour.hasMany(db.creneau, {foreignKey: {name: 'jour_creneau', type: Sequelize.
 db.creneau.belongsTo(db.jour, {foreignKey: {name: 'jour_creneau', type: Sequelize.INTEGER}});
 
 
+db.ROLES = ["admin", "benevole"]
 
 
 module.exports = db;
