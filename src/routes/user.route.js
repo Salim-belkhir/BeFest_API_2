@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const userCtrl = require('../controllers/user.ctrl');
-const auth = require('../middlewares/auth');
+const auth = require('../middlewares/auth')
 
 
 
-router.get('/:id', auth, userCtrl.getUserById);
+router.get('/:id', auth.verifyToken ,userCtrl.getUserById);
 
 
-router.put('/:id', auth , userCtrl.updateUser);
+router.put('/:id', auth.verifyToken, userCtrl.updateUser);
 
 
 module.exports = router
