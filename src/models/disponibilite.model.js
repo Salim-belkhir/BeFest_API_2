@@ -1,6 +1,5 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = new Sequelize('sqlite::memory:');
+module.exports = (sequelize, Sequelize) => {
+    const Disponibilite = sequelize.define('Disponibilite', {});
 
-const Disponibilite = sequelize.define('Disponibilite', {});
-
-module.exports = Disponibilite;
+    return Disponibilite;
+};

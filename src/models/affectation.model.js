@@ -1,6 +1,5 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = new Sequelize('sqlite::memory:');
+module.exports = (sequelize, Sequelize) => {
+    const Affectation = sequelize.define('Affectation', {});
 
-const Affectation = sequelize.define('Affectation', {});
-
-module.exports = Affectation;
+    return Affectation;
+}

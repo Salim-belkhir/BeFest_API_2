@@ -1,5 +1,4 @@
 const dbConfig = require("../configs/db.configs.js");
-
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
@@ -19,13 +18,13 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 
-db.festival = require("./festival.model.js");
-db.zone = require("./zone.model.js");
-db.creneau = require("./creneau.model.js");
-db.affectation = require("./affectation.model.js");
-db.disponibilite = require("./disponibilite.model.js");
-db.user = require("./user.model.js");
-db.jour = require("./jour.model.js");
+db.festival = require("./festival.model.js") (sequelize, Sequelize);
+db.zone = require("./zone.model.js")(sequelize, Sequelize);
+db.creneau = require("./creneau.model.js")(sequelize, Sequelize);
+db.affectation = require("./affectation.model.js")(sequelize, Sequelize);
+db.disponibilite = require("./disponibilite.model.js")(sequelize, Sequelize);
+db.user = require("./user.model.js")(sequelize, Sequelize);
+db.jour = require("./jour.model.js")(sequelize, Sequelize);
 
 
 db.festival.hasMany(db.jour, {foreignKey: {name: 'festival_jour', type: Sequelize.INTEGER}});
