@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Festival = sequelize.define("festival", {
+    const Festival = sequelize.define("Festival", {
         id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
