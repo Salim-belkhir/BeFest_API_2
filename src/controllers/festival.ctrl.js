@@ -1,8 +1,14 @@
-const Festival = require('../models/festival.model');
+const db = require("../models");
+const Festival = db.festival;
+const Sequelize = db.Sequelize;
+const Zone = db.zone;
+const Affectation = db.affectation;
+const User = db.user;
+
 
 exports.getAllFestivals = (req, res) => {
     Festival.findAll({
-        attributes: ['id', 'name', 'year', 'nbOfDays', 'closed', [Sequelize.fn('COUNT', Sequelize.fn('DISTINCT', Sequelize.col('user.id'))), 'countBenevoles']],
+        attributes: ['id', 'name', 'year', 'nbOfDays', 'closed', [Sequelize.fn('COUNT', Sequelize.fn('DISTINCT', Sequelize.col('Zones->Affectations->User.email'))), 'countBenevoles']],
         include: [{
             model: Zone,
             include: [{
