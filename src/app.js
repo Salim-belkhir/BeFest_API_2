@@ -8,6 +8,8 @@ const userRoute = require('./routes/user.route');
 const zoneRoute = require('./routes/zone.route');
 const authRoute = require('./routes/auth.route');
 const jourRoute = require('./routes/jour.route');
+const disponibiliteRoute = require('./routes/disponibilite.route');
+const creneauRoute = require('./routes/creneau.route');
 
 
 const app = express();
@@ -40,6 +42,8 @@ app.use('/api/users', userRoute);
 app.use('/api/zones', zoneRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/jours', jourRoute);
+app.use('/api/disponibilites', disponibiliteRoute);
+app.use('/api/creneaux', creneauRoute);
 
 
 
