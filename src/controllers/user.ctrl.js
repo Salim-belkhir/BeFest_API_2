@@ -67,3 +67,21 @@ exports.updateUser = (req, res) => {
         });
     });
 }
+
+
+exports.getAllBenevoles = (req, res) => {
+    User.findAll({
+        where: {
+            role: "benevole"
+        },
+        attributes: { exclude : ['password'] }
+    })
+    .then(users => {
+        res.status(200).send(users);
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: err.message || "Some error occurred while retrieving users."
+        });
+    });
+};
