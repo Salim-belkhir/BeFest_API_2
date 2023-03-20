@@ -5,8 +5,6 @@ const auth = require('../middlewares/auth');
 
 
 
-
-
 router.get('/festival/:id', jourCtrl.getAllJoursOfFestival);
 
 router.post('/', jourCtrl.createJour);
