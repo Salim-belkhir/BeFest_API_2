@@ -23,7 +23,7 @@ exports.getAllZonesOfFestival = (req, res) => {
 
 exports.createZone = (req, res) => {
     const zone = {
-        nom_zone: req.body.nom_zone,
+        name: req.body.name,
         festival_zone: req.body.id_festival,
         nbBenevolesNeeded: req.body.nbBenevolesNeeded,
     };
@@ -43,7 +43,7 @@ exports.createZone = (req, res) => {
 
 exports.updateZone = (req, res) => {
     const new_zone = {
-        nom_zone: req.body.nom_zone,
+        name: req.body.name,
         festival_zone: req.body.festival_zone,
         nbBenevolesNeeded: req.body.nbBenevolesNeeded,
     };
