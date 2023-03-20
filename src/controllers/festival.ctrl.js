@@ -22,7 +22,7 @@ exports.getAllFestivals = (req, res) => {
             }],
         attributes: [],
         }],
-        group: ['festival.id'],
+        group: ['Festival.id'],
     })
     .then(festivals => {
         res.status(200).send(festivals);
