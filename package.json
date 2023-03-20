@@ -17,9 +17,11 @@
   },
   "homepage": "https://github.com/Salim-belkhir/BeFest_API_2#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "http": "^0.0.1-security",
+    "jsonwebtoken": "^9.0.0",
     "mysql2": "^3.2.0",
     "nodemon": "^2.0.21",
     "sequelize": "^6.29.3",
