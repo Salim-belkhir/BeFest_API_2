@@ -31,7 +31,8 @@ exports.signin = (req, res) => {
             email: req.body.email
         }
     })
-    .then(user => {
+    .then(userDB => {
+        let user = userDB[0].dataValues;
         if (!user) {
             return res.status(401).json({message : "Mot de passe/login faux"});
         }
