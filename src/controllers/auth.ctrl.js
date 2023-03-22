@@ -42,12 +42,11 @@ exports.signin = (req, res) => {
                 return res.status(401).send("Mot de passe erroné");
             }
 
-            delete user.password;
-
             var token = jwt.sign(
                     {userId : user._id }, config.secret,
                     { expiresIn: '24h' }
             );
+        
 
             user.token = token;
 
