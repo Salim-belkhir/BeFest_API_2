@@ -8,7 +8,7 @@ const User = db.user;
 
 exports.getAllJoursOfFestival = (req, res) => {
     Jour.findAll({
-        attributes: ['id', 'name', 'heureOuverture', 'heureFermeture', [db.Sequelize.fn('COUNT', db.Sequelize.fn('DISTINCT', db.Sequelize.col('Affectations->User.email'))), 'countBenevoles']],
+        attributes: ['id', 'name', 'heureOuverture', 'heureFermeture', [db.Sequelize.fn('COUNT', db.Sequelize.fn('DISTINCT', db.Sequelize.col('Creneaus->Affectations->User.email'))), 'countBenevoles']],
         where: {
             festival_jour: req.params.id
         },
