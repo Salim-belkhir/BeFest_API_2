@@ -1,13 +1,26 @@
 const db = require("../models");
 const Jour = db.jour;
+const Creneau = db.creneau;
+const Affectation = db.affectation;
+const User = db.user;
 
 
 
 exports.getAllJoursOfFestival = (req, res) => {
     Jour.findAll({
+        attributes: ['id', 'name', 'heureOuverture', 'heureFermeture', [db.Sequelize.fn('COUNT', db.Sequelize.fn('DISTINCT', db.Sequelize.col('Affectations->User.email'))), 'countBenevoles']],
         where: {
             festival_jour: req.params.id
-        }
+        },
+        include: [{
+            model: Creneau,
+            include: [{
+                model: Affectation,
+                include: [{
+                    model: User
+                }]
+            }]
+        }]
     }).then(jours => {
         res.status(200).send(jours);
     })

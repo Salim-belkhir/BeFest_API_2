@@ -6,7 +6,8 @@ exports.getAllDisponibiliteOfUser = (req, res) => {
     Disponibilite.findAll({
         where: {
             user_dispo: req.params.id
-        }
+        },
+        include: ['Creneau']
     })
     .then(disponibilites => {
         res.status(200).send(disponibilites);

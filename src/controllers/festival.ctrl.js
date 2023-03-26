@@ -71,11 +71,11 @@ exports.closeFestival = (req, res) => {
     })
         .then(num => {
             if (num == 1) {
-                res.send({
+                res.status(200).send({
                     message: "Festival was disabled successfully."
                 });
             } else {
-                res.send({
+                res.status(400).send({
                     message: `Cannot disable Festival with id=${id}. Maybe Festival was not found`
                 });
             }
@@ -102,12 +102,12 @@ exports.updateFestival = (req, res) => {
     )
     .then(num => {
         if (num == 1) {
-            res.send({
+            res.status(201).send({
                 message: "Festival was updated successfully."
             });
         }
         else {
-            res.send({
+            res.status(404).send({
                 message: `Cannot update Festival with id=${id}. Maybe Festival was not found`
             });
         }
@@ -130,11 +130,11 @@ exports.deleteFestival = (req, res) => {
     })
         .then(num => {
             if (num == 1) {
-                res.send({
+                res.status(200).send({
                     message: "Festival was deleted successfully!"
                 });
             } else {
-                res.send({
+                res.status(400).send({
                     message: `Cannot delete Festival with id=${id}. Maybe Festival was not found!`
                 });
             }
