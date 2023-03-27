@@ -5,7 +5,7 @@ const auth = require('../middlewares/auth')
 
 
 
-router.get('/benevoles', [auth.verifyToken, auth.isAdmin], userCtrl.getAllBenevoles);
+router.get('/benevoles', userCtrl.getAllBenevoles);
 
 router.get('/:id', auth.verifyToken ,userCtrl.getUserById);
 

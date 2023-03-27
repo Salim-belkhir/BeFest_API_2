@@ -18,7 +18,7 @@ router.get('/creneau/:id', affectationCtrl.getAllAffectationOfCreneau);
 
 router.post('/', affectationCtrl.createAffectation);
 
-router.put('/:id',[auth.isAdmin || auth.verifyToken] ,affectationCtrl.updateAffectation);
+router.put('/:id',affectationCtrl.updateAffectation);
 
 router.delete('/:id', affectationCtrl.deleteAffectation);
 
