@@ -6,6 +6,8 @@ const zoneCtrl = require('../controllers/zone.ctrl')
 
 router.get('/festival/:id', zoneCtrl.getAllZonesOfFestival);
 
+router.get('/creneau/:id', zoneCtrl.getAllZonesOfCreneau);
+
 router.post('', zoneCtrl.createZone);
 
 router.put('/:id', zoneCtrl.updateZone);

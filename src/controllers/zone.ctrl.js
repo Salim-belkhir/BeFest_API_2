@@ -1,5 +1,7 @@
+const { Sequelize } = require("../models");
 const db = require("../models");
 const Zone = db.zone;
+const Affectation = db.affectation;
 
 
 
@@ -19,6 +21,28 @@ exports.getAllZonesOfFestival = (req, res) => {
         console.log(err)
     });
 }
+
+
+exports.getAllZonesOfCreneau = (req, res) => {
+    Zone.findAll({
+        attribute: ['id', 'name', 'nbBenevolesNeeded', [Sequelize.fn('COUNT', Sequelize.fn('DISTINCT', Sequelize.col('Affectations->User.email'))), 'countBenevoles']],
+        include: [{
+            model: Affectation,
+            where: { creneau_affectation: req.params.id },
+        }],
+        group: ['Zone.id'],
+    })
+    .then(zones => {
+        res.status(200).send(zones);
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: err.message || "Some error occurred while retrieving zones."
+        });
+        console.log(err)
+    });
+}
+
 
 
 exports.createZone = (req, res) => {

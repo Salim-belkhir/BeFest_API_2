@@ -4,7 +4,7 @@ const disponibiliteCtrl = require('../controllers/disponibilite.ctrl');
 
 
 
-router.get('/user/:id', disponibiliteCtrl.getAllDisponibiliteOfUser);
+router.get('/user/:idUser/festival/:idFestival', disponibiliteCtrl.getAllDisponibiliteOfUser);
 
 
 router.get('/creneau/:id', disponibiliteCtrl.getAllDisponibiliteOfCreneau);

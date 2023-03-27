@@ -1,13 +1,21 @@
 const db = require('../models');
 const Disponibilite = db.disponibilite;
+const Creneau = db.creneau
+const Jour = db.jour
 
 
 exports.getAllDisponibiliteOfUser = (req, res) => {
     Disponibilite.findAll({
         where: {
-            user_dispo: req.params.id
+            user_dispo: req.params.idUser
         },
-        include: ['Creneau']
+        include: [{
+            model: Creneau,
+            include: [{
+                model: Jour,
+                where: {festival_jour: req.params.idFestival}
+            }]
+        }]
     })
     .then(disponibilites => {
         res.status(200).send(disponibilites);
