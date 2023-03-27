@@ -20,7 +20,7 @@ module.exports = (sequelize, Sequelize) => {
             }
         },
         heureOuverture: {
-            type: DataTypes.TIME,
+            type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 notNull: {
@@ -32,7 +32,7 @@ module.exports = (sequelize, Sequelize) => {
             }
         },
         heureFermeture: {
-            type: DataTypes.TIME,
+            type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 notNull: {

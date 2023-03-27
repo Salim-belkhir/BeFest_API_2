@@ -9,7 +9,7 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true
         },
         heureDebut: {
-            type: DataTypes.TIME,
+            type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 notNull: {
@@ -21,7 +21,7 @@ module.exports = (sequelize, Sequelize) => {
             }
         },
         heureFin: {
-            type: DataTypes.TIME,
+            type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 notNull: {
