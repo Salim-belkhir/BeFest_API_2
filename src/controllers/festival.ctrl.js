@@ -4,7 +4,7 @@ const Sequelize = db.Sequelize;
 const Zone = db.zone;
 const Affectation = db.affectation;
 const User = db.user;
-
+const Jour = db.jour;
 
 exports.getAllFestivals = (req, res) => {
     Festival.findAll({
@@ -43,6 +43,14 @@ exports.createFestival = (req, res) => {
         return;
     }
 
+    // Cree une zone libre et l'ajoute à ce festival
+    const zone = {
+        name: 'Libre',
+        festival_zone: 0,
+        nbBenevolesNeeded: 1,
+    };
+
+
     const festival = {
         name: req.body.name,
         year: req.body.year,
@@ -52,6 +60,18 @@ exports.createFestival = (req, res) => {
 
     Festival.create(festival)
         .then(data => {
+            zone.festival_zone = data.id;
+            Zone.create(zone);
+            // Créer les jours du festival 
+            for (let i = 1; i <= data.nbOfDays; i++) {
+                const jour = {
+                    name: 'Jour ' + i,
+                    festival_jour: data.id,
+                    heureOuverture: '08:00',
+                    heureFermeture: '22:00'
+                };
+                Jour.create(jour);
+            }
             res.status(201).send(data);
         })
         .catch(err => {
