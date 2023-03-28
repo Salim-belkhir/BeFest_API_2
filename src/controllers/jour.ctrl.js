@@ -20,8 +20,10 @@ exports.getAllJoursOfFestival = (req, res) => {
                     model: User
                 }]
             }]
-        }]
+        }],
+        group: ['Jour.id'],
     }).then(jours => {
+        console.log(jours)
         res.status(200).send(jours);
     })
     .catch(err => {
