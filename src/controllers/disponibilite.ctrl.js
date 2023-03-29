@@ -3,27 +3,6 @@ const Disponibilite = db.disponibilite;
 const Creneau = db.creneau
 const Jour = db.jour
 
-
-// Get all disponibilites of a user en fonction de son id et de l'id du festival
-/*
-exports.getAllDisponibiliteOfUser = (req, res) => {
-    Disponibilite.findAll({
-        where: {
-            user_dispo: req.params.idUser
-        },
-        include: ['Creneau']
-    })
-    .then(disponibilites => {
-        res.status(200).send(disponibilites);
-    })
-    .catch(err => {
-        res.status(500).send({
-            message: err.message || "Some error occurred while retrieving disponibilites."
-        });
-    });
-}
-*/
-
 exports.getAllDisponibiliteOfUser = (req, res) => {
     Disponibilite.findAll({
         where: {
@@ -42,12 +21,14 @@ exports.getAllDisponibiliteOfUser = (req, res) => {
     })
     .then(disponibilites => {
         // Je souhaite renvoyer que crenau_dispo et heure_debut et heure_fin
+        // Je souhaite récupérer l'id du jour et le nom du jour
         const result = disponibilites.map(dispo => {
             return {
                 id: dispo.id,
                 creneau_dispo: dispo.creneau_dispo,
                 heure_debut: dispo.Creneau.heureDebut,
-                heure_fin: dispo.Creneau.heureFin
+                heure_fin: dispo.Creneau.heureFin,
+                jour: dispo.Creneau.Jour.name
             }
         })
         res.status(200).send(result);
