@@ -31,13 +31,15 @@ exports.getUserById = (req, res) => {
 
 
 exports.updateUser = (req, res) => {
+    /*
     if(req.params.id != req.userId) {
         res.status(403).send({
             message: "Forbidden, it's not your account."
         });
         return;
     }
-
+    */
+   
     if(req.body.password) {
         const salt = bcrypt.genSaltSync(10);
         req.body.password = bcrypt.hashSync(req.body.password, salt);
