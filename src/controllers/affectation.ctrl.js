@@ -113,7 +113,7 @@ exports.deleteAffectation = (req, res) => {
 
 
 exports.createAffectation = (req, res) => {
-    if (!req.body.id_user || !req.body.id_zone || !req.body.id_xcreneau) {
+    if (!req.body.id_user || !req.body.id_zone || !req.body.id_creneau) {
         res.status(400).send({
             message: "There are some informations necessary not provided!"
         });

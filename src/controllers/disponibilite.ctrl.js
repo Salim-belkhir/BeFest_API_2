@@ -6,17 +6,31 @@ const Jour = db.jour
 
 exports.getAllDisponibiliteOfUser = (req, res) => {
     Disponibilite.findAll({
-        where: {
-            user_dispo: req.params.idUser
-        },
+        attributes: [],
         include: [{
-            model: Creneau,
+            model: 'Creneau',
+            attributes: [],
             include: [{
-                model: Jour,
+                model: 'Jour',
                 where: {festival_jour: req.params.idFestival}
             }]
-        }]
+        }],
+        where: {
+            user_dispo: req.params.idUser
+        }
     })
+    /*
+    Creneau.findAll({
+        attributes: [],
+        include: [{
+            model: 'Disponibilite',
+            where: {user_dispo: req.params.idUser}
+        },
+        {
+            model: 'Jour',
+            where: {festival_jour: req.params.idFestival}
+        }]
+    })*/
     .then(disponibilites => {
         res.status(200).send(disponibilites);
     })
