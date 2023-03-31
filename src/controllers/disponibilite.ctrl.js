@@ -5,10 +5,11 @@ const Jour = db.jour
 
 exports.getAllDisponibiliteOfUser = (req, res) => {
     Disponibilite.findAll({
-        attributes: [],
+        where: {
+            user_dispo: req.params.idUser
+        },
         include: [{
-            model: 'Creneau',
-            attributes: [],
+            model: Creneau,
             include: [{
                 model: Jour,
                 where: {
@@ -16,23 +17,8 @@ exports.getAllDisponibiliteOfUser = (req, res) => {
                 },
             }]
             
-        }],
-        where: {
-            user_dispo: req.params.idUser
-        }
-    })
-    /*
-    Creneau.findAll({
-        attributes: [],
-        include: [{
-            model: 'Disponibilite',
-            where: {user_dispo: req.params.idUser}
-        },
-        {
-            model: 'Jour',
-            where: {festival_jour: req.params.idFestival}
         }]
-    })*/
+    })
     .then(disponibilites => {
         // Je souhaite renvoyer que crenau_dispo et heure_debut et heure_fin
         // Je souhaite récupérer l'id du jour et le nom du jour
