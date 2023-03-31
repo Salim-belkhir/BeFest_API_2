@@ -1,5 +1,6 @@
 const db = require("../models");
 const Affectation = db.affectation;
+const Disponibilite = db.disponibilite;
 
 
 
@@ -139,6 +140,22 @@ exports.createAffectation = (req, res) => {
     Affectation.create(affectation)
     .then(data => {
         res.status(200).send(data);
+        // maintenant on doit supprimer la disponibilité de l'utilisateur
+        Disponibilite.destroy(
+        {
+            where: {
+                user_dispo: req.body.id_user,
+                creneau_dispo: req.body.id_creneau
+            }
+        })
+        .then(() => {
+            console.log("Disponibilité supprimée avec succès");
+        }
+        )
+        .catch(err => {
+            console.log("Erreur lors de la suppression de la disponibilité");
+        }
+        )
     })
     .catch(err => {
         res.status(500).send({
