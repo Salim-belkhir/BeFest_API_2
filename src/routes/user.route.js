@@ -1,16 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const userCtrl = require('../controllers/user.ctrl');
-const auth = require('../middlewares/auth')
+//const auth = require('../middlewares/auth')
 
 
 
 router.get('/benevoles', userCtrl.getAllBenevoles);
 
-router.get('/:id', auth.verifyToken ,userCtrl.getUserById);
+router.get('/:id',userCtrl.getUserById);
 
 
-router.put('/:id', auth.verifyToken, userCtrl.updateUser);
+router.put('/:id',userCtrl.updateUser);
 
 
 
