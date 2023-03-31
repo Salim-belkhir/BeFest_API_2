@@ -81,7 +81,17 @@ exports.getAllAffectationOfZoneForCreneau = (req, res) => {
         include: ['User']
     })
     .then(affectations => {
-        res.status(200).send(affectations);
+        // enelever les attributs inutiles comme createdAt, updatedAt, etc
+        const result = affectations.map(affectation => {
+            return {
+                id: affectation.id,
+                id_user: affectation.User.id,
+                lastname: affectation.User.lastname,
+                firstname: affectation.User.firstname,
+                email: affectation.User.email,
+            }
+        })
+        res.status(200).send(result);
     })
     .catch(err => {
         res.status(500).send({

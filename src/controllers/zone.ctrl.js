@@ -48,7 +48,7 @@ exports.getAllZonesOfCreneau = (req, res) => {
 exports.createZone = (req, res) => {
     const zone = {
         name: req.body.name,
-        festival_zone: req.body.id_festival,
+        festival_zone: req.body.festival_zone,
         nbBenevolesNeeded: req.body.nbBenevolesNeeded,
     };
 

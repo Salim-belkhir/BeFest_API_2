@@ -3,7 +3,6 @@ const Disponibilite = db.disponibilite;
 const Creneau = db.creneau
 const Jour = db.jour
 
-
 exports.getAllDisponibiliteOfUser = (req, res) => {
     Disponibilite.findAll({
         attributes: [],
@@ -11,9 +10,12 @@ exports.getAllDisponibiliteOfUser = (req, res) => {
             model: 'Creneau',
             attributes: [],
             include: [{
-                model: 'Jour',
-                where: {festival_jour: req.params.idFestival}
+                model: Jour,
+                where: {
+                    festival_jour : req.params.idFestival
+                },
             }]
+            
         }],
         where: {
             user_dispo: req.params.idUser
@@ -32,7 +34,18 @@ exports.getAllDisponibiliteOfUser = (req, res) => {
         }]
     })*/
     .then(disponibilites => {
-        res.status(200).send(disponibilites);
+        // Je souhaite renvoyer que crenau_dispo et heure_debut et heure_fin
+        // Je souhaite récupérer l'id du jour et le nom du jour
+        const result = disponibilites.map(dispo => {
+            return {
+                id: dispo.id,
+                creneau_dispo: dispo.creneau_dispo,
+                heure_debut: dispo.Creneau.heureDebut,
+                heure_fin: dispo.Creneau.heureFin,
+                jour: dispo.Creneau.Jour.name
+            }
+        })
+        res.status(200).send(result);
     })
     .catch(err => {
         res.status(500).send({
