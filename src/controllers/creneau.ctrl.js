@@ -15,9 +15,39 @@ exports.getAllCreneauOfJour = (req, res) => {
             include: [{
                 model: User
             }]
-        }]
+        }],
+        group: ['Creneau.id'],
     })
     .then(creneaux => {
+        res.status(200).send(creneaux);
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: err.message || "Some error occurred while retrieving creneaux."
+        });
+    });
+};
+
+// Récupérer que les creneaux qui ont une affectation pour un user donné
+exports.getAllCreneauOfJourForUser = (req, res) => {
+    Creneau.findAll({
+        attributes: ['id', 'heureDebut', 'heureFin', [db.Sequelize.fn('COUNT', db.Sequelize.fn('DISTINCT', db.Sequelize.col('Affectations->User.email'))), 'countBenevoles']],
+        where: {
+            jour_creneau: req.params.idJour
+        },
+        include: [{
+            model: Affectation,
+            where: {
+                user_affectation: req.params.idUser
+            },
+            include: [{
+                model: User
+            }]
+        }],
+        group: ['Creneau.id'],
+    })
+    .then(creneaux => {
+        console.log(creneaux.length)
         res.status(200).send(creneaux);
     })
     .catch(err => {

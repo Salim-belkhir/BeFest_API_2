@@ -6,6 +6,8 @@ const creneauCtrl = require('../controllers/creneau.ctrl');
 
 router.get('/jour/:id', creneauCtrl.getAllCreneauOfJour);
 
+router.get('/jour/:idJour/user/:idUser', creneauCtrl.getAllCreneauOfJourForUser);
+
 router.post('/', creneauCtrl.createCreneau);
 
 router.put('/:id', creneauCtrl.updateCreneau);
