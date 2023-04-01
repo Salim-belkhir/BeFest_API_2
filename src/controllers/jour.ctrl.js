@@ -6,6 +6,7 @@ const User = db.user;
 
 
 
+
 exports.getAllJoursOfFestival = (req, res) => {
     Jour.findAll({
         attributes: ['id', 'name', 'heureOuverture', 'heureFermeture', [db.Sequelize.fn('COUNT', db.Sequelize.fn('DISTINCT', db.Sequelize.col('Creneaus->Affectations->User.email'))), 'countBenevoles']],
@@ -32,6 +33,42 @@ exports.getAllJoursOfFestival = (req, res) => {
         });
     });
 };
+
+// Récupere les jours d'un festival tel que il existe une affectation pour un bénévole donné
+exports.getAllJoursOfFestivalForUser = (req, res) => {
+    Jour.findAll({
+      where: {
+        festival_jour: req.params.idFest
+      },
+      include: [{
+        model: Creneau,
+        include: [{
+          model: Affectation,
+          where: {
+            user_affectation: req.params.idUser
+          }
+        }]
+      }],
+      group: ['Jour.id'],
+    })
+    .then(jours => {
+      // enelever les jours qui n'ont pas d'affectation pour le user dans le creneau
+        for (let i = 0; i < jours.length; i++) {
+            if (jours[i].dataValues.Creneaus.length == 0) {
+                jours.splice(i, 1);
+                i--;
+            }
+        }
+      res.status(200).send(jours);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while retrieving jours."
+      });
+    });
+  };
+
+
 
 
 
