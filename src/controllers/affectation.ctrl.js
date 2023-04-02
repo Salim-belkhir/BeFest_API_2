@@ -45,7 +45,8 @@ exports.getAllAffectationOfUser = (req, res) => {
         include: ['Zone', 'Creneau']
     })
     .then(affectations => {
-        const results = affectations.map(affectation => {
+        const results = affectations.filter(affectation => affectation.Zone.festival_zone == req.params.idFestival)
+        .map(affectation => {
             return {
                 id: affectation.id,
                 id_zone: affectation.zone_affectation,

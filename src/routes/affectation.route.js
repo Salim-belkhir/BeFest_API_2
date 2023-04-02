@@ -9,7 +9,7 @@ const auth = require('../middlewares/auth');
 router.get('/', affectationCtrl.getAllAffectation);
 
 
-router.get('/user/:id', affectationCtrl.getAllAffectationOfUser);
+router.get('/user/:id/festival/:idFestival', affectationCtrl.getAllAffectationOfUser);
 
 router.get('/zone/:id_zone/creneau/:id_creneau', affectationCtrl.getAllAffectationOfZoneForCreneau);
 
