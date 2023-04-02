@@ -124,17 +124,21 @@ exports.getAllAffectationOfZoneForCreneau = (req, res) => {
 
 
 exports.deleteAffectation = (req, res) => {
-    console.log("Route pour delete")
-    console.log(req.params.id)
     Affectation.destroy({
         where: {
             id: req.params.id
         }
     })
-    .then(() => {
-        res.status(200).send({
-            message: "Affectation deleted successfully!"
-        });
+    .then(num => {
+        if (num == 1) {
+            res.status(200).send({
+                message: "Affectation was deleted successfully."
+            });
+        } else {
+            res.status(404).send({
+                message: `Cannot delete Affectation with id=${id}. Maybe Affectation was not found!`
+            });
+        }
     })
     .catch(err => {
         res.status(500).send({
@@ -205,8 +209,16 @@ exports.updateAffectation = (req, res) => {
             id: req.params.id
         }
     })
-    .then(data => {
-        res.status(201).send(data);
+    .then(num => {
+        if (num == 1) {
+            res.status(200).send({
+                message: "Affectation was updated successfully."
+            });
+        } else {
+            res.status(404).send({
+                message: `Cannot update Affectation with id=${id}. Maybe Affectation was not found!`
+            });
+        }
     })
     .catch(err => {
         res.status(500).send({

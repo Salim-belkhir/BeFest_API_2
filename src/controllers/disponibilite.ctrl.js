@@ -115,8 +115,16 @@ exports.deleteDisponibilite = (req, res) => {
             id: req.params.id
         }
     })
-    .then(data => {
-        res.status(200).send(data);
+    .then(num => {
+        if (num == 1) {
+            res.status(200).send({
+                message: "Disponibilite was deleted successfully."
+            });
+        } else {
+            res.status(404).send({
+                message: `Cannot delete Disponibilite with id=${id}. Maybe Disponibilite was not found!`
+            });
+        }
     })
     .catch(err => {
         res.status(500).send({

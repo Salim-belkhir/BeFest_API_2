@@ -84,8 +84,16 @@ exports.deleteCreneau = (req, res) => {
             id: req.params.id
         }
     })
-    .then(data => {
-        res.status(200).send(data);
+    .then(num => {
+        if (num == 1) {
+            res.status(200).send({
+                message: "Creneau was updated successfully."
+            });
+        } else {
+            res.status(404).send({
+                message: `Cannot update Creneau with id=${id}. Maybe Creneau was not found!`
+            });
+        }
     })
     .catch(err => {
         res.status(500).send({
@@ -107,8 +115,16 @@ exports.updateCreneau = (req, res) => {
             id: req.params.id
         }
     })
-    .then(data => {
-        res.status(200).send(data);
+    .then(num => {
+        if (num == 1) {
+            res.status(200).send({
+                message: "Creneau was updated successfully."
+            });
+        } else {
+            res.status(404).send({
+                message: `Cannot update Creneau with id=${id}. Maybe Creneau was not found!`
+            });
+        }
     })
     .catch(err => {
         res.status(500).send({
