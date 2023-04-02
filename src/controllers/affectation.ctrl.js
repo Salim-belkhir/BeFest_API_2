@@ -42,7 +42,13 @@ exports.getAllAffectationOfUser = (req, res) => {
         where: {
             user_affectation: req.params.id
         },
-        include: ['Zone', 'Creneau']
+        include: [{
+            model: db.zone,
+        },
+        {
+            model: db.creneau,
+            include: ['Jour']
+        }]
     })
     .then(affectations => {
         const results = affectations.filter(affectation => affectation.Zone.festival_zone == req.params.idFestival)
@@ -54,7 +60,8 @@ exports.getAllAffectationOfUser = (req, res) => {
                 zone_name: affectation.Zone.name,
                 zone_number_benevoles_needed: affectation.Zone.nbBenevolesNeeded,
                 creneau_heure_debut: affectation.Creneau.heureDebut,
-                creneau_heure_fin: affectation.Creneau.heureFin
+                creneau_heure_fin: affectation.Creneau.heureFin,
+                jour_name: affectation.Creneau.Jour.name,
             }
         })
         res.status(200).send(results);
