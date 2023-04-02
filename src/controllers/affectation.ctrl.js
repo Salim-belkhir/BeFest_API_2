@@ -45,7 +45,18 @@ exports.getAllAffectationOfUser = (req, res) => {
         include: ['Zone', 'Creneau']
     })
     .then(affectations => {
-        res.status(200).send(affectations);
+        const results = affectations.map(affectation => {
+            return {
+                id: affectation.id,
+                id_zone: affectation.zone_affectation,
+                id_creneau: affectation.creneau_affectation,
+                zone_name: affectation.Zone.name,
+                zone_number_benevoles_needed: affectation.Zone.nbBenevolesNeeded,
+                creneau_heure_debut: affectation.Creneau.heureDebut,
+                creneau_heure_fin: affectation.Creneau.heureFin
+            }
+        })
+        res.status(200).send(results);
     })
     .catch(err => {
         res.status(500).send({
